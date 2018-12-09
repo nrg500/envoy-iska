@@ -38,5 +38,5 @@ static_resources:
     lb_policy: round_robin
     hosts:
     - socket_address:
-        address: localhost
+        address: 127.0.0.1
         port_value: 8080
