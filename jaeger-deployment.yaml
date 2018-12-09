@@ -12,6 +12,10 @@ spec:
     targetPort: 16686
     protocol: TCP
     name: http
+  - port: 9441
+    targetPort: 9441
+    protocol: TCP
+    name: tracing-info
   selector:
     app: jaeger
 ---

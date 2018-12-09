@@ -60,4 +60,4 @@ static_resources:
     hosts:
     - socket_address:
         address: jaeger
-        port_value: 9411
+        port_value: 9441
