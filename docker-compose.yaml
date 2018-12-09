@@ -3,10 +3,10 @@ services:
     hotel:
       build:
         context: build/app
-      image: berwoutv/hotel
+      image: berwoutv/hotel:berwout
 
     hotel-envoy:
       build:
         context:
           build/envoy
-      image: berwoutv/hotel-envoy
+      image: berwoutv/hotel-envoy:berwout

@@ -1,3 +1,4 @@
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -32,10 +33,10 @@ spec:
     spec:
       containers:
         - name: hotel
-          image: berwoutv/hotel
+          image: berwoutv/hotel:berwout
           ports:
             - containerPort: 8080
         - name: hotel-envoy
-          image: berwoutv/hotel-envoy
+          image: berwoutv/hotel-envoy:berwout
           ports:
             - containerPort: 80
