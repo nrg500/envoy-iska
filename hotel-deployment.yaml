@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hotel
+  labels:
+    run: hotel
+spec:
+  type: NodePort
+  ports:
+  - port: 8080
+    targetPort: 80
+    protocol: TCP
+    name: http
+  selector:
+    run: hotel
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hotel
+  labels:
+    app: hotel
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hotel
+  template:
+    metadata:
+      labels:
+        app: hotel
+    spec:
+      containers:
+        - name: hotel
+          image: berwoutv/hotel
+          ports:
+            - containerPort: 8080
+        - name: hotel-envoy
+          image: berwoutv/hotel-envoy
+          ports:
+            - containerPort: 80

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hotel-pod
+spec:
+  containers:
+    - name: hotel
+      image: berwoutv/hotel
+      ports:
+        - containerPort: 8080
+    - name: hotel-envoy
+      image: berwoutv/hotel-envoy
+      ports:
+        - containerPort: 80

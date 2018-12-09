@@ -1,0 +1,12 @@
+version: '2'
+services:
+    hotel:
+      build:
+        context: build/app
+      image: berwoutv/hotel
+
+    hotel-envoy:
+      build:
+        context:
+          build/envoy
+      image: berwoutv/hotel-envoy
