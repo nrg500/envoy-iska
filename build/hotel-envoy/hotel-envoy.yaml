@@ -62,4 +62,4 @@ static_resources:
     hosts:
     - socket_address:
         address: zipkin
-        port_value: 9441
+        port_value: 9411
