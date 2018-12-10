@@ -4,14 +4,13 @@ tracing:
     config:
       collector_cluster: jaeger
       collector_endpoint: "/api/v1/spans"
-
+      shared_span_context: false
 admin:
   access_log_path: "/dev/null"
   address:
     socket_address:
       address: 0.0.0.0
       port_value: 8001
-
 static_resources:
   listeners:
   - name: http-listener
@@ -23,6 +22,8 @@ static_resources:
     - filters:
       - name: envoy.http_connection_manager
         config:
+          tracing:
+            operation_name: ingress
           access_log:
           - name: envoy.file_access_log
             config:
@@ -30,7 +31,6 @@ static_resources:
               format: "[ACCESS_LOG][%START_TIME%] \"%REQ(:METHOD)% %REQ(X-ENVOY-ORIGINAL-PATH?:PATH)% %PROTOCOL%\" %RESPONSE_CODE% %RESPONSE_FLAGS% %BYTES_RECEIVED% %BYTES_SENT% %DURATION% %RESP(X-ENVOY-UPSTREAM-SERVICE-TIME)% \"%REQ(X-FORWARDED-FOR)%\" \"%REQ(USER-AGENT)%\" \"%REQ(X-REQUEST-ID)%\" \"%REQ(:AUTHORITY)%\" \"%UPSTREAM_HOST%\" \"%DOWNSTREAM_REMOTE_ADDRESS_WITHOUT_PORT%\"\n"
           codec_type: auto
           stat_prefix: ingress_http
-          generate_request_id: true
           route_config:
             name: local_route
             virtual_hosts:
@@ -42,6 +42,8 @@ static_resources:
                   prefix: "/"
                 route:
                   cluster: hotel
+                decorator:
+                  operation: getRoom
           http_filters:
           - name: envoy.router
   clusters:
@@ -59,5 +61,5 @@ static_resources:
     lb_policy: round_robin
     hosts:
     - socket_address:
-        address: jaeger
+        address: zipkin
         port_value: 9441

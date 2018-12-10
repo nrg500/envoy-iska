@@ -8,5 +8,11 @@ services:
     hotel-envoy:
       build:
         context:
-          build/envoy
+          build/hotel-envoy
       image: berwoutv/hotel-envoy:berwout
+
+    front-envoy:
+      build:
+        context:
+          build/front-envoy
+      image: berwoutv/front-envoy:berwout

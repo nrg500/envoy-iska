@@ -1,0 +1,38 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: front-envoy
+  labels:
+    run: front-envoy
+spec:
+  type: NodePort
+  ports:
+    - port: 8082
+      targetPort: 80
+      protocol: TCP
+      name: http
+  selector:
+    app: front-envoy
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front-envoy
+  labels:
+    app: front-envoy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: front-envoy
+  template:
+    metadata:
+      labels:
+        app: front-envoy
+    spec:
+      containers:
+        - name: front-envoy
+          image: berwoutv/front-envoy:berwout
+          ports:
+            - containerPort: 80
