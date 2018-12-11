@@ -12,6 +12,10 @@ spec:
       targetPort: 80
       protocol: TCP
       name: http
+    - port: 8001
+      targetPort: 8001
+      protocol: TCP
+      name: prometheus
   selector:
     app: front-envoy
 ---
@@ -36,3 +40,4 @@ spec:
           image: berwoutv/front-envoy:berwout
           ports:
             - containerPort: 80
+            - containerPort: 8001
