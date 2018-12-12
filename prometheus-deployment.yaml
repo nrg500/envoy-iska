@@ -58,7 +58,8 @@ data:
         format: ['prometheus']
       static_configs:
       - targets: ['front-envoy:8001']
-      - targets: ['hotel:8002']
+      - targets: ['hotel:8001']
+      - targets: ['booking:8001']
     - job_name: 'kubernetes-pods'
       kubernetes_sd_configs:
       - role: pod

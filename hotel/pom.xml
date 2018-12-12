@@ -61,7 +61,7 @@
 									<type>${project.packaging}</type>
 								</artifactItem>
 							</artifactItems>
-							<outputDirectory>build/app</outputDirectory>
+							<outputDirectory>../build/hotel</outputDirectory>
 						</configuration>
 					</execution>
 				</executions>

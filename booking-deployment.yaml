@@ -2,9 +2,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: front-envoy
+  name: booking
   labels:
-    run: front-envoy
+    run: booking
 spec:
   type: NodePort
   ports:
@@ -17,27 +17,31 @@ spec:
       protocol: TCP
       name: prometheus
   selector:
-    app: front-envoy
+    app: booking
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: front-envoy
+  name: booking
   labels:
-    app: front-envoy
+    app: booking
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: front-envoy
+      app: booking
   template:
     metadata:
       labels:
-        app: front-envoy
+        app: booking
     spec:
       containers:
-        - name: front-envoy
-          image: berwoutv/front-envoy:berwout
+        - name: booking
+          image: berwoutv/booking:berwout
+          ports:
+            - containerPort: 8080
+        - name: booking-envoy
+          image: berwoutv/booking-envoy:berwout
           ports:
             - containerPort: 80
             - containerPort: 8001

@@ -34,27 +34,41 @@ static_resources:
           route_config:
             name: local_route
             virtual_hosts:
-            - name: hotel-backend
+            - name: booking-backend
               domains:
               - "*"
               routes:
-              - match:
-                  prefix: "/"
-                route:
-                  cluster: hotel
-                decorator:
-                  operation: getRoom
+                - match:
+                    prefix: "/room"
+                  route:
+                    cluster: hotel
+                  decorator:
+                    operation: getRoom
+                - match:
+                    prefix: "/"
+                  route:
+                    cluster: booking
+                  decorator:
+                    operation: getBooking
           http_filters:
-            - name: envoy.router
+          - name: envoy.router
   clusters:
+  - name: booking
+    connect_timeout: 5s
+    type: strict_dns
+    lb_policy: round_robin
+    hosts:
+      - socket_address:
+          address: 127.0.0.1
+          port_value: 8080
   - name: hotel
     connect_timeout: 5s
     type: strict_dns
     lb_policy: round_robin
     hosts:
     - socket_address:
-        address: 127.0.0.1
-        port_value: 8080
+        address: hotel
+        port_value: 8081
   - name: jaeger
     connect_timeout: 0.25s
     type: strict_dns

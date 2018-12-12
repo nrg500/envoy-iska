@@ -8,14 +8,14 @@ metadata:
 spec:
   type: NodePort
   ports:
-  - port: 8081
-    targetPort: 80
-    protocol: TCP
-    name: http
-  - port: 8002
-    targetPort: 8001
-    protocol: TCP
-    name: prometheus
+    - port: 8081
+      targetPort: 80
+      protocol: TCP
+      name: http
+    - port: 8001
+      targetPort: 8001
+      protocol: TCP
+      name: prometheus
   selector:
     app: hotel
 ---

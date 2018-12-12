@@ -2,14 +2,25 @@ version: '3'
 services:
     hotel:
       build:
-        context: build/app
+        context: build/hotel
       image: berwoutv/hotel:berwout
+
+    booking:
+      build:
+        context: build/booking
+      image: berwoutv/booking:berwout
 
     hotel-envoy:
       build:
         context:
           build/hotel-envoy
       image: berwoutv/hotel-envoy:berwout
+
+    booking-envoy:
+      build:
+        context:
+          build/booking-envoy
+      image: berwoutv/booking-envoy:berwout
 
     front-envoy:
       build:
